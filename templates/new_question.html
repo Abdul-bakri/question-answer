@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Create New Post{% endblock %}
+{% block content %}
+
+<h2>Ask a Question</h2>
+
+    {% if g.user %}
+    <form method="post" action="{{ url_for('add_question') }}" class="pure_form pure-form-stacked">
+    <fieldset>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
+
+        <label for="'subject">Subject:</label>
+        <input type="text" name="subject" required>
+
+        <label for="question">Question:</label>
+        <textarea name="question" required id="content" class="pure-input-1-2"></textarea>
+
+        <button type="submit" class="pure-button pure-button-primary">Ask!</button>
+    </fieldset>
+    </form>
+{% else %}
+    {# <h2>You must log in to ask a question.</h2> #}
+{% endif %}
+
+{% endblock %}

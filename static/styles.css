@@ -1,0 +1,90 @@
+html {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 16pt;
+}
+
+header h1 {
+    font-family: 'Cinzel Decorative', cursive;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: none;
+    text-align: center;
+}
+
+header h1 a:hover, header h1 a:visited, header h1 a:active, header h1 a:link{
+    text-decoration: none;
+    color: #000;
+}
+
+header hr {
+    width: 75%;
+}
+
+nav div{
+    margin: 0 auto;
+    width: 28%;
+}
+
+.main {
+    padding-left: 16%;
+    font-size: 75%;
+}
+
+.pure-menu-link {
+    border-radius: 5pt;
+}
+
+.pure-button {
+    border-radius: 5pt;
+}
+
+.pure-button-primary {
+    background-color: black;
+    color: white;
+}
+
+.q-display img{
+    max-height: 50pt;
+}
+
+@media screen and (min-width: 48em) {
+    .sidebar h1 {
+        text-align: left;
+    }
+}
+
+.thumbs-up {
+    font-family: FontAwesome;
+    /* a star is a block that flows inline with text */
+    display: inline-block;
+    /* stars have link-style pointers */
+    cursor: pointer;
+}
+
+.thumbs-up[data-state="checked"]::after {
+    content: "\f164"; /* filled thumbs-up */
+    color: lightgreen;
+}
+
+.thumbs-up[data-state="unchecked"]::after {
+    content: "\f087"; /* open thumbs-up */
+    color: grey;
+}
+
+.thumbs-down {
+    font-family: FontAwesome;
+    /* a star is a block that flows inline with text */
+    display: inline-block;
+    /* stars have link-style pointers */
+    cursor: pointer;
+}
+
+.thumbs-down[data-state="checked"]::after {
+    content: "\f165"; /* filled thumbs-up */
+    color: tomato;
+}
+
+.thumbs-down[data-state="unchecked"]::after {
+    content: "\f088"; /* open thumbs-up */
+    color: grey;
+}

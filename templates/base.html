@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}Title{% endblock %}</title>
+    <script type="text/javascript">
+        WebFontConfig = {
+            google: { families: [ 'Source+Sans+Pro:400,700,400italic,900,600,300:latin',
+                'Cinzel+Decorative:400,900,700:latin' ] }
+          };
+          (function() {
+            var wf = document.createElement('script');
+            wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+            wf.type = 'text/javascript';
+            wf.async = 'true';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wf, s);
+          })();
+    </script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css"
+          media="screen and (min-width: 48em)">
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    {# Save the CSRF token where JavaScript can get it #}
+    <script>var csrfToken = '{{ session.csrf_token }}';</script>
+</head>
+
+<body>
+    <div id="shell" class="pure-g">
+        <header class="pure-u-1">
+            <h1><a href="/">Answer This!</a></h1>
+            <hr>
+
+            <nav class="pure-u-1 pure-menu pure-menu-horizontal">
+                <div>
+                    <ul class="pure-menu-list">
+                        {% if g.user %}
+                        <a href="/logout?url={{ request.path }}" class="log-button pure-button logout">Log Out</a>
+{#                            <li class="pure-menu-item"><a href="/user" class="pure-menu-link">Profile</a></li>#}
+                            <li class="pure-menu-item"><a href="/new_question" class="pure-menu-link">
+                                Ask Question</a></li>
+                        {% else %}
+                        <a href="/login" class="log-button pure-button">Log in</a>
+{#                            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Create Profile</a></li>#}
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <div id="main" class="main pure-u-1 pure-u-md-17-24">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

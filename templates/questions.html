@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}{{ question.title }}{% endblock %}
+{% block content %}
+<h2 class="title q-display"><img src="http://findicons.com/files/icons/2338/reflection/128/question_3.png">
+    {{ question.title }}</h2>
+    <h3>Subject: {{ question.subject }}</h3>
+    <h3>Answers:</h3>
+    {% for answer in answers|sort(attribute='thumbs_up', reverse=True) %}
+    <fieldset>
+        {{ answer.content }}
+    {% set count = [0] %}
+        {% if session.auth_user %}
+            <br><br>
+            {% if ratings %}
+                {% for rating in ratings %}
+                    {% if session.auth_user == rating.user_id %}
+                        {% if rating.answer_id == answer.id %}
+
+                            <b>{{ answer.thumbs_up - answer.thumbs_down }}</b>
+                            <span class="widget thumbs-up" data-state="{{ "checked" if rating.value else "unchecked" }}"
+                                data-answer-id="{{ answer.id }}"></span>
+                            <span class="widget thumbs-down" data-state="{{ "checked" if not rating.value else "unchecked" }}"
+                                data-answer-id="{{ answer.id }}"></span>
+                            {% if count.append(count.pop() + 1) %}
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+
+    {% if (count.pop()) == 0 %}
+        <b>{{ answer.thumbs_up - answer.thumbs_down }}</b>
+        <span class="widget thumbs-up" data-state="{{ "unchecked" }}"
+              data-answer-id="{{ answer.id }}"></span>
+        <span class="widget thumbs-down" data-state="{{ "unchecked" }}"
+              data-answer-id="{{ answer.id }}"></span>
+    {% endif %}
+    </fieldset>
+    {% endfor %}
+
+    {% if g.user %}
+        <form method="post" action="{{ url_for('add_answer') }}" class="pure_form pure-form-stacked">
+        <fieldset>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
+
+            <label for="content">Have a better answer?</label>
+            <textarea name="content" id="content" class="pure-input-1-2"></textarea>
+            <input type="hidden" name="question_id" value={{ question.id }}>
+
+            <button type="submit" class="pure-button pure-button-primary">Answer!</button>
+        </fieldset>
+        </form>
+    {% else %}
+         <h2>You must log in to answer questions.</h2>
+    {% endif %}
+
+    <script type="application/javascript" src="{{ url_for('static', filename='thumbs.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+    <h2>Recent Posts</h2>
+    {% for post in recent_posts %}
+    <ul><a href="/questions/{{ post.id }}">{{ post.subject }}: {{ post.title }}</a></ul>
+    {% endfor %}
+
+{% endblock %}
